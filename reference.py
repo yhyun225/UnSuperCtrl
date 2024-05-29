@@ -19,5 +19,3 @@ for image_name in images:
     image = image.resize((1024, 576))
     frames = pipeline(image, num_frames=30, decode_chunk_size=8, generator=generator).frames[0]
     export_to_video(frames, "{}.mp4".format(image_name.strip('.png')), fps=7)
-
-sss
