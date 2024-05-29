@@ -1,0 +1,73 @@
+
+output_dir: "output/cameractrl_model"
+
+train_data:
+  root_path:        "/hdd/yhyun225/re10k"
+  split:            "train"
+  sample_stride: 8
+  sample_n_frames: 16
+  relative_pose: true
+  zero_t_first_frame: true
+  sample_size: [256, 384]
+  rescale_fxy: true
+  shuffle_frames: true
+  use_flip: false
+  data_num: -1
+
+validation_data:
+  root_path:       "/hdd/yhyun225/re10k"
+  split:           "test"
+  sample_stride: 8
+  sample_n_frames: 16
+  relative_pose: true
+  zero_t_first_frame: true
+  sample_size: [256, 384]
+  rescale_fxy: true
+  shuffle_frames: false
+  use_flip: false
+  return_clip_name: true
+  data_num: 3
+
+lora_rank: 2
+lora_scale: 1.0
+lora_ckpt: ~
+
+pose_encoder_kwargs:
+  downscale_factor: 8
+  channels: [320, 640, 1280, 1280]
+  nums_rb: 2
+  cin: 384
+  ksize: 1
+  sk: true
+  use_conv: false
+  compression_factor: 1
+  temporal_attention_nhead: 8
+  attention_block_types: ["Temporal_Self", ]
+  temporal_position_encoding: true
+  temporal_position_encoding_max_len: 16
+
+stable_video_diffusion_kwargs:
+  pretrained_model_name_or_path: "stabilityai/stable-video-diffusion-img2vid-xt"
+  fps: 7
+  motion_bucket_id: 127
+  noise_aug_strength: 0.02
+  num_videos_per_prompt: 1
+
+do_sanity_check: true
+
+max_train_epoch:      -1
+max_train_steps:      25000
+validation_steps:       500
+validation_steps_tuple: [1,]
+
+learning_rate:    1.e-4
+
+num_workers: 8
+train_batch_size: 2
+checkpointing_epochs: -1
+checkpointing_steps:  5000
+
+mixed_precision_training: true
+global_seed: 42
+logger_interval: 10
+

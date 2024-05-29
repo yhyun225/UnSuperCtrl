@@ -1,0 +1,22 @@
+name: cc
+channels:
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+    - diffusers==0.24.0
+    - imageio==2.27.0
+    - imageio[ffmpeg]
+    - opencv-python
+    - transformers
+    - gdown
+    - einops
+    - decord
+    - omegaconf
+    - safetensors
+    - gradio
+    - wandb
+    - triton
+    - termcolor
